@@ -1,9 +1,9 @@
 FROM node:12 as appcode
 
 WORKDIR /app/
-ADD . .
-RUN yarn
-RUN yarn build
+ADD ./diary/ .
+RUN npm i
+RUN npm run build
 FROM nginx:1.23.1 as webserver
 
-COPY --from=appcode /app/bundle/ /usr/share/nginx/html
+COPY --from=appcode /app/build/ /usr/share/nginx/html
